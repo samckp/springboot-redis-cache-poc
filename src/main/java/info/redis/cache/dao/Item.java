@@ -1,9 +1,6 @@
 package info.redis.cache.dao;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -13,15 +10,10 @@ public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "productname")
     private String productName;
+    @Column(name = "price")
     private BigDecimal price;
-
-    public Item() {
-    }
-    public Item(String productName, BigDecimal price) {
-        this.productName = productName;
-        this.price = price;
-    }
 
     public Integer getId() {
         return id;
