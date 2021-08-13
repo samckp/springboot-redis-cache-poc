@@ -3,10 +3,7 @@ package info.redis.cache.controller;
 import info.redis.cache.dao.Item;
 import info.redis.cache.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/item")
@@ -18,5 +15,17 @@ public class ItemController {
     @GetMapping("/{id}")
     public Item getItem(@PathVariable Integer id) {
         return itemService.getItem(id);
-    } 
+    }
+
+    @PostMapping("/")
+    public Item createItem(@RequestBody Item item){
+
+        return itemService.createItem(item);
+    }
+
+    @PutMapping("/{id}")
+    public Item updateItem(@PathVariable Integer id, @RequestBody Item item){
+
+        return itemService.updateItem(id, item);
+    }
 }
