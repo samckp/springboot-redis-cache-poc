@@ -40,4 +40,9 @@ public class ItemService {
         item.setProductName(request.getProductName());
         return itemRepository.save(item);
     }
+
+    public void deleteItem(Integer id) {
+
+        itemRepository.deleteById(id);
+    }
 }
