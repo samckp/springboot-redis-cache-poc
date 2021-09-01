@@ -29,7 +29,7 @@ public class ItemService {
         return item;
     }
 
-    public Item createItem(Item item) {
+    public Item saveItem(Item item) {
         return itemRepository.save(item);
     }
 

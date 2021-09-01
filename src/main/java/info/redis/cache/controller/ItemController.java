@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +43,27 @@ public class ItemController {
     public ResponseEntity createItem(@RequestBody Item item){
 
         log.info("REST request to save Item : {}", item);
-        return new ResponseEntity<>(itemService.createItem(item), HttpStatus.CREATED);
+        return new ResponseEntity<>(itemService.saveItem(item), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/additems")
+    public ResponseEntity createItems(@RequestBody List<Item> items,
+                                      @RequestParam("wait") String wait){
+
+        log.info("REST request to save Item : {}", items);
+
+        if (items.isEmpty()){
+
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }else if (!items.isEmpty() && wait.equalsIgnoreCase("true") ){
+
+            for (Item itm: items) {
+                itemService.saveItem(itm);
+            }
+            return new ResponseEntity(HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
